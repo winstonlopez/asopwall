@@ -1,5 +1,6 @@
 #results-container  {
-    height: 300px;
+    height: fit-content;
+    min-height: 300px;
 }
 
 #button-container   {
@@ -39,4 +40,10 @@
     display: flex;
     height: 100%;
     width: 100%;
+}
+
+#result-split h3{
+    font-size: 1em;
+    color: rgb(255, 188, 188);
+    border-bottom: 1px solid black;
 }
