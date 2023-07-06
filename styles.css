@@ -47,3 +47,11 @@
     color: rgb(255, 188, 188);
     border-bottom: 1px solid black;
 }
+
+#report div label {
+    width: 100%;
+}
+
+.highlight {
+    background-color: rgb(142, 255, 255);
+}

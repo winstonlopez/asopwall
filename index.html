@@ -16,23 +16,36 @@
     </div>
     <div class="container-xl my-3 bg-light border border-primary">
         <div class="row">
-            <div class="col-2 border p-2" id="report">
+            <div class="col-4 border p-2" id="report">
                 <h3 class="border-bottom">Report Type</h3>
-                <div class="form-check">
+                <div class="form-check border">
                     <input class="form-check-input" type="radio" name="report-type" id="walls-addon" value="walls-addon" checked>
                     <label class="form-check-label" for="walls-addon">
                       Walls Add-on
+                        <ul>
+                          <li>[PRODUCT_EC_PREMIUM]</li>
+                          <li>[PRODUCT_EC3D]</li>
+                          <li>[AA3D]</li>
+                          <li>[CLAIMS_READY]</li>
+                        </ul>
                     </label>
                   </div>
-                <div class="form-check">
+                <div class="form-check border">
                     <input class="form-check-input" type="radio" name="report-type" id="walls-only" value="walls-only">
                     <label class="form-check-label" for="walls-only">
                       Walls Only
+                      <ul>
+                        <li>[PRODUCT_WALL_PREMIUM]</li>
+                        <li>[PRODUCT_WALL_LITEV2]</li>
+                        <li>[PRODUCT_WALL_LITE]</li>
+                        <li>[PRODUCT_RES_WALL_WIN_DOOR]</li>
+                        <li>[PRODUCT_RES_WALLS_FKA_LITE]</li>
+                      </ul>
                     </label>
                   </div>
                   
             </div>
-            <div class="col-5 border p-2">
+            <div class="col-4 border p-2">
                 <h3 class="border-bottom">Structures</h3>
 
                   <div class="form-check m-2">
@@ -76,7 +89,7 @@
                   </select>
 
             </div>
-            <div class="col-5 border p-2">
+            <div class="col-4 border p-2">
                 <h3 class="border-bottom">Customer Notes</h3>
 
                   <select class="form-select m-2" aria-label="notes" id="notes">
