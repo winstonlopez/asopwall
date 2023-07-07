@@ -451,20 +451,46 @@ function addOn(primary, detached, standard, small, cn){
 
             if(detached && obs >= 1 && farDg.checked == true){
                 let li = document.createElement(`li`);
-                li.innerHTML = `Outbuilding (Roof Only)`;
+                li.innerHTML = `Closest Outbuilding (Roof Only)`;
                 structures.append(li);
                 obs--;
 
-                let garage = document.createElement(`li`);
-                garage.innerHTML = `Detached Garage (Roof + Walls)`;
-                splitStructures.append(garage);
+                let farGarage = 1;
 
-                //for remaining obs, roof only
+                
+                let counter = 1;
 
                 for(let i = 1; i <= obs; i++){
+                    
+                    
+                    let report = document.createElement('h3');
+                    report.innerHTML = `Split Report:`;
+                    splitStructures.append(report);
+                    if(farGarage > 0){
+                        let garage = document.createElement(`li`);
+                        garage.innerHTML = `Detached Garage (Roof + Walls)`;
+                        splitStructures.append(garage);
+                        farGarage--;
+                        let li = document.createElement(`li`);
+                        li.innerHTML = `Outbuilding #${counter + 1} (Roof Only)`;
+                        splitStructures.append(li);
+                        obs--;
+                        counter++;
+                    }
+                    if(farGarage == 0 && obs > 0){
+                    let report = document.createElement('h3');
+                    report.innerHTML = `Split Report:`;
+                    splitStructures.append(report);
+                    //for remaining obs, roof only
+                    for(let j = 1; j <= obs; j){
                     let li = document.createElement(`li`);
-                    li.innerHTML = `Outbuilding #${i + 1} (Roof Only)`;
+                    li.innerHTML = `Outbuilding #${counter + 1} (Roof Only)`;
                     splitStructures.append(li);
+                    counter++;
+                    obs--;
+                    }
+                }
+                    
                 }
             }
         
