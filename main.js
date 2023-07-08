@@ -496,6 +496,107 @@ function addOn(primary, detached, standard, small, cn){
         
         
     }
+    if(cn == `1`){  //---------------PS and shed/DG and Shed, not specific
+
+        if(!primary){
+            structures.innerHTML = `<h2>!Needs FTO Confirmation!</h2>`;
+            structures.classList.add(`red`);
+            resultMain.append(structures);
+            return;
+        }
+        
+        if(detached && farDg.checked == false){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Primary Structure (Roof + Walls)`;
+            structures.append(li);
+            let li2 = document.createElement(`li`);
+            li2.innerHTML = `Detached Garage (Roof + Walls)`;
+            structures.append(li2);
+                //for obs
+            if(+standard > 0){
+                let li = document.createElement(`li`);
+                li.innerHTML = `Standard OB (Roof + Walls)`;
+                splitStructures.append(li);
+                if(+small > 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Outbuilding (Roof Only)`;
+                    splitStructures.append(li);
+                    obs--;
+                }
+                if(obs > 0){
+                    let others = document.createElement(`h3`);
+                    others.innerHTML = `<hr />*Split Remaining OutBuildings (Roof Only)`;
+                    splitStructures.append(others);
+                }
+            }
+
+
+        }
+
+        if(detached && farDg.checked == true){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Primary Structure (Roof + Wall)`;
+            structures.append(li);
+            if(obs <= 1){
+                let splitDg = document.createElement(`li`);
+                    splitDg.innerHTML = `Detached Garage (Roof + Walls)`;
+                    splitStructures.append(splitDg);
+            }
+                if(+standard > 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Standard OB (Roof + Walls)`;
+                    structures.append(li)
+                    obs--;
+                }
+                if(obs > 0 && +standard <= 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Small OB (Roof + Walls)`;
+                    structures.append(li);
+                    obs--;
+                }
+                if(obs > 0){
+                    let splitDg = document.createElement(`li`);
+                    splitDg.innerHTML = `Detached Garage (Roof + Walls)`;
+                    splitStructures.append(splitDg);
+
+                    if(obs > 0){
+                        let li = document.createElement(`li`);
+                        li.innerHTML = `Small OB (Roof Only)`;
+                        splitStructures.append(li);
+                        obs--;
+                    }
+                    if(obs > 0){
+                    let others = document.createElement(`h3`);
+                    others.innerHTML = `<hr />*Split Remaining OutBuildings (Roof Only)`;
+                    splitStructures.append(others);
+                    }
+                }
+        }
+
+        if(!detached){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Primary Structure (Roof + Wall)`;
+            structures.append(li);
+            if(+standard > 0){
+                let li = document.createElement(`li`);
+                    li.innerHTML = `Standard OB (Roof + Walls)`;
+                    structures.append(li)
+                    obs--;
+            }
+            if(obs > 0 && +standard <=0){
+                let li = document.createElement(`li`);
+                    li.innerHTML = `Small OB (Roof + Walls) *closest`;
+                    structures.append(li)
+                    obs--;
+            }
+            if(obs > 0){
+                let others = document.createElement(`h3`);
+                    others.innerHTML = `<hr />*Split Remaining OutBuildings (Roof Only)`;
+                    splitStructures.append(others);
+            }
+        }
+
+    }
 
     resultMain.append(structures);
     resultSplit.append(splitStructures);
