@@ -422,7 +422,7 @@ function addOn(primary, detached, standard, small, cn){
 
     
 
-    if(cn == `0`){  //--------------------No Customer Notes--------------
+    if(cn == `0`){  //---------No Customer Notes--------------------
 
         if(!primary){
             structures.innerHTML = `<h2>!Needs FTO Confirmation!</h2>`;
@@ -507,7 +507,7 @@ function addOn(primary, detached, standard, small, cn){
         
         
     }
-    if(cn == `1`){  //---------------PS and shed/DG and Shed, not specific
+    if(cn == `1`){  //---------PS and shed/DG and Shed, not specific
 
         if(!primary){
             structures.innerHTML = `<h2>!Needs FTO Confirmation!</h2>`;
@@ -524,7 +524,7 @@ function addOn(primary, detached, standard, small, cn){
             li2.innerHTML = `Detached Garage (Roof + Walls)`;
             structures.append(li2);
                 //for obs
-            if(+standard > 0 && +small > 0){
+            if(+standard > 0){
                 let li = document.createElement(`li`);
                 li.innerHTML = `Standard OB (Roof + Walls)`;
                 splitStructures.append(li);
@@ -609,9 +609,265 @@ function addOn(primary, detached, standard, small, cn){
         }
 
     }
-    if(cn == `2`) { //-----------Specific (PS and Shed Only)------------
+    if(cn == `2`){ //----------Specific (PS and Shed Only)----------
         
+        if(!primary){
+            let li = document.createElement(`li`);
+            li.innerHTML = `!Needs FTO Confirmation!`;
+            li.classList.add(`red`);
+            structures.append(li);
+            return;
+        }
 
+        //no obs
+            let li = document.createElement(`li`);
+            li.innerHTML = `Primary Structure (Roof + Walls)`;
+            structures.append(li);
+        
+        if(obs >= 1 && +standard >= 1){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Standard OB (Roof + Walls)`;
+            structures.append(li);
+        }
+        if(obs >= 1 && +standard <= 0){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Closest OB (Roof + Walls)`;
+            structures.append(li);
+        }
+
+    }
+    if(cn == `3`){  //---------Specific (DG and Shed Only)----------
+        if(detached && farDg.checked == false && obs <= 0){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Detached Garage (Roof + Walls)`;
+            structures.append(li);
+        }
+        if(detached && farDg.checked == false && obs >= 1){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Detached Garage (Roof + Walls)`;
+            structures.append(li);
+
+                if(+standard >= 1){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Standard OB (Roof + Walls)`;
+                    structures.append(li);
+                }
+                if(+standard <= 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Closest OB (Roof + Walls)`;
+                    structures.append(li);
+                }
+        }
+        if(farDg.checked == true){
+            if(obs <= 0){
+                let li = document.createElement(`li`);
+                li.innerHTML = `Detached Garage (Roof + Walls)`;
+                structures.append(li);
+            }
+            if(obs >= 1){
+                let count = 0;
+                if(+standard >= 1){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Detached Garage (Roof + Walls)`;
+                    structures.append(li);
+                    count++;
+
+                    let li2 = document.createElement(`li`);
+                    li2.innerHTML = `Standard OB (Roof + Walls)`;
+                    splitStructures.append(li2);
+                    count++;
+                }
+                if(+small >= 1 && count < 2){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Detached Garage (Roof + Walls)`;
+                    structures.append(li);
+
+                    let li2 = document.createElement(`li`);
+                    li2.innerHTML = `Outbuilding (Roof + Walls)`;
+                    splitStructures.append(li2);
+                }
+            }
+        }
+        if(!detached){
+            if(obs <= 0){
+                structures.innerHTML = `!Needs Fto Confirmation!`;
+                structures.classList.add(`red`)
+            }
+            let st = +standard;
+            let sm = +small;
+            let count = 0;
+            for(let i = 1; i <= 2; i++){
+                if(st > 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Standard OB (Roof + Walls)`;
+                    structures.append(li);
+                    st--;
+                    count++;
+                }
+                if(st <= 0 && count < 2){
+                    if(sm > 0){
+                        let li = document.createElement(`li`);
+                        li.innerHTML = `Outbuilding (Roof + Walls)`;
+                        structures.append(li);
+                        sm--;
+                        count++;
+                    }
+                }
+            }
+        }
+
+    }
+    if(cn == `4`){  //---------All Structures-------------------------
+        if(!primary){
+            structures.innerHTML = `<h2>!Needs FTO Confirmation!</h2>`;
+            structures.classList.add(`red`);
+            resultMain.append(structures);
+            return;
+        }
+
+        if(primary){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Primary Structure (Roof + Walls)`;
+            structures.append(li);
+        }
+
+        let st = +standard;
+        let sm = +small;
+        if(detached && farDg.checked == false){
+            let li = document.createElement(`li`);
+            li.innerHTML = `Detached Garage (Roof + Walls)`;
+            structures.append(li);
+                if(obs > 0){
+                    let counter = 0;
+                    let next = false;
+                    while(obs > 0){
+                        let report = document.createElement(`h3`);
+                        report.innerHTML = `Split Report`;
+                        splitStructures.append(report);
+                        
+                            while(st > 0){
+                                let li = document.createElement(`li`);
+                                li.innerHTML = `Standard OB (Roof + Walls)`;
+                                splitStructures.append(li);
+                                counter++;
+                                st--;
+                                obs--;
+                                if(counter >= 2){
+                                    //reset counter
+                                    next = true;
+                                    counter = 0;
+                                    break;
+                                }else{
+                                    next = false;
+                                }
+                            }
+                            while(sm > 0){
+                                if(next){
+                                    break;
+                                }
+                                let li = document.createElement(`li`);
+                                li.innerHTML = `Small OB (Roof + Walls)`;
+                                splitStructures.append(li);
+                                counter++;
+                                sm--;
+                                obs--;
+                                if(counter >= 2){
+                                    counter = 0;
+                                    break;
+                                }
+                            }
+                    }
+                }
+        }
+
+        if(detached && farDg.checked == true){
+            let st = +standard;
+            let sm = +small;
+            let primary = false;
+            let dg = false;
+            if(st > 0){
+                let li = document.createElement(`li`);
+                li.innerHTML = `Standard OB (Roof + Walls)`;
+                structures.append(li);
+                st--;
+                primary = true;
+            }
+            if(sm > 0 && !primary){
+                let li = document.createElement(`li`);
+                li.innerHTML = `Closest OB (Roof + Walls)`;
+                structures.append(li);
+                sm--;
+            }
+
+            //for split
+            let obs = st + sm;
+            let counter = 0;
+            while(obs > 0){
+                let li = document.createElement(`h3`);
+                li.innerHTML = `Split Report`;
+                splitStructures.append(li);
+
+                if(!dg){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Detached Garage (Roof + Walls)`;
+                    splitStructures.append(li);
+                    dg = true;
+                    counter++;
+                }
+                while(obs > 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Outbuilding (Roof + Walls)`;
+                    splitStructures.append(li);
+                    obs--;
+                    counter++;
+                    if(counter >= 2){
+                        counter = 0;    //reset
+                        break;
+                    }
+                }
+            }
+            
+        }
+        if(!detached){
+            let st = +standard;
+            let sm = +small;
+            let primary = false;
+
+            if(obs > 0){
+                if(st > 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Standard OB (Roof + Walls)`;
+                    structures.append(li);
+                    obs--;
+                    primary = true;
+                }
+                if(sm > 0 && !primary){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Closest OB (Roof + Walls)`;
+                    structures.append(li);
+                    obs--;
+                }
+                //for split structures
+                let counter = 0;
+                while(obs > 0){
+                    let li = document.createElement(`h3`);
+                    li.innerHTML = `Split Report`;
+                    splitStructures.append(li);
+    
+                    while(obs > 0){
+                        let li = document.createElement(`li`);
+                        li.innerHTML = `Outbuilding (Roof + Walls)`;
+                        splitStructures.append(li);
+                        obs--;
+                        counter++;
+                        if(counter >= 2){
+                            counter = 0;    //reset
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     resultMain.append(structures);
