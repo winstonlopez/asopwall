@@ -785,6 +785,7 @@ function addOn(primary, detached, standard, small, cn){
             let sm = +small;
             let primary = false;
             let dg = false;
+            
             if(st > 0){
                 let li = document.createElement(`li`);
                 li.innerHTML = `Standard OB (Roof + Walls)`;
@@ -802,6 +803,15 @@ function addOn(primary, detached, standard, small, cn){
             //for split
             let obs = st + sm;
             let counter = 0;
+            if(obs <= 0){
+                if(!dg){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Detached Garage (Roof + Walls)`;
+                    splitStructures.append(li);
+                    dg = true;
+                    counter++;
+                }
+            }
             while(obs > 0){
                 let li = document.createElement(`h3`);
                 li.innerHTML = `Split Report`;
