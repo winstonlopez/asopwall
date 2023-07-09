@@ -276,6 +276,17 @@ function allWalls(primary, detached, standard, small, cn){
                 structures.append(li2);
             }
         }
+        if(!detached && + standard >= 1){
+            let bigOb = +standard;
+            for(let i = 1; i <= 2; i++){
+                if(bigOb >= 1){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Standard Ob (Roof + Walls)`;
+                    structures.append(li);
+                    bigOb--;
+                }
+            }
+        }
         if(!detached && +standard == 1 && +small >= 1){
             
                 let li = document.createElement(`li`);
@@ -513,22 +524,23 @@ function addOn(primary, detached, standard, small, cn){
             li2.innerHTML = `Detached Garage (Roof + Walls)`;
             structures.append(li2);
                 //for obs
-            if(+standard > 0){
+            if(+standard > 0 && +small > 0){
                 let li = document.createElement(`li`);
                 li.innerHTML = `Standard OB (Roof + Walls)`;
                 splitStructures.append(li);
-                if(+small > 0){
-                    let li = document.createElement(`li`);
-                    li.innerHTML = `Outbuilding (Roof Only)`;
-                    splitStructures.append(li);
+                obs--;
+                let li2 = document.createElement(`li`);
+                    li2.innerHTML = `Outbuilding (Roof Only)`;
+                    splitStructures.append(li2);
                     obs--;
-                }
+            }
+                
                 if(obs > 0){
                     let others = document.createElement(`h3`);
                     others.innerHTML = `<hr />*Split Remaining OutBuildings (Roof Only)`;
                     splitStructures.append(others);
                 }
-            }
+            
 
 
         }
@@ -561,7 +573,7 @@ function addOn(primary, detached, standard, small, cn){
 
                     if(obs > 0){
                         let li = document.createElement(`li`);
-                        li.innerHTML = `Small OB (Roof Only)`;
+                        li.innerHTML = `Outbuilding (Roof Only)`;
                         splitStructures.append(li);
                         obs--;
                     }
@@ -595,6 +607,10 @@ function addOn(primary, detached, standard, small, cn){
                     splitStructures.append(others);
             }
         }
+
+    }
+    if(cn == `2`) { //-----------Specific (PS and Shed Only)------------
+        
 
     }
 
