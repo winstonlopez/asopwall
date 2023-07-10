@@ -276,7 +276,7 @@ function allWalls(primary, detached, standard, small, cn){
                 structures.append(li2);
             }
         }
-        if(!detached && + standard >= 1){
+        if(!detached && +standard >= 1 && +small <=0){
             let bigOb = +standard;
             for(let i = 1; i <= 2; i++){
                 if(bigOb >= 1){
