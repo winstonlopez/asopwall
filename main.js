@@ -504,6 +504,30 @@ function addOn(primary, detached, standard, small, cn){
                     
                 }
             }
+            if(!detached){
+                let st = +standard;
+                let sm = +small;
+
+                if(st > 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Standard OB (Roof + Walls)`;
+                    structures.append(li);
+                    st--;
+                    obs--;
+                }
+                if(st <= 0 && sm > 0){
+                    let li = document.createElement(`li`);
+                    li.innerHTML = `Closest OB (Roof + Walls)`;
+                    structures.append(li);
+                    sm--;
+                    obs--;
+                }
+                if(obs > 0){
+                    let li = document.createElement(`h3`);
+                    li.innerHTML = `Split Remaining OBs (Roof Only)`;
+                    splitStructures.append(li);
+                }
+            }
         
         
     }
