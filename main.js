@@ -757,49 +757,34 @@ function addOn(primary, detached, standard, small, cn){
 
         let st = +standard;
         let sm = +small;
+
         if(detached && farDg.checked == false){
             let li = document.createElement(`li`);
             li.innerHTML = `Detached Garage (Roof + Walls)`;
             structures.append(li);
-                if(obs > 0){
+                while(obs > 0){
                     let counter = 0;
-                    let next = false;
-                    while(obs > 0){
-                        let report = document.createElement(`h3`);
-                        report.innerHTML = `Split Report`;
-                        splitStructures.append(report);
-                        
-                            while(st > 0){
-                                let li = document.createElement(`li`);
-                                li.innerHTML = `Standard OB (Roof + Walls)`;
-                                splitStructures.append(li);
-                                counter++;
-                                st--;
-                                obs--;
-                                if(counter >= 2){
-                                    //reset counter
-                                    next = true;
-                                    counter = 0;
-                                    break;
-                                }else{
-                                    next = false;
-                                }
-                            }
-                            while(sm > 0){
-                                if(next){
-                                    break;
-                                }
-                                let li = document.createElement(`li`);
-                                li.innerHTML = `Small OB (Roof + Walls)`;
-                                splitStructures.append(li);
-                                counter++;
-                                sm--;
-                                obs--;
-                                if(counter >= 2){
-                                    counter = 0;
-                                    break;
-                                }
-                            }
+                    let report = document.createElement(`h3`);
+                    report.innerHTML = `Split Report:`;
+                    splitStructures.append(report);
+                    while(st > 0 && counter < 2){
+                        let li = document.createElement(`li`);
+                        li.innerHTML = `Standard OB (Roof + Walls)`;
+                        splitStructures.append(li);
+                        counter++;
+                        st--;
+                        obs--;
+                    }
+                    while(sm > 0 && counter < 2){
+                        let li = document.createElement(`li`);
+                        li.innerHTML = `Small OB (Roof + Walls)`;
+                        splitStructures.append(li);
+                        counter++;
+                        sm--;
+                        obs--;
+                    }
+                    if(counter >= 2){
+                        counter = 0;
                     }
                 }
         }
